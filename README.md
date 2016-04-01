@@ -1,7 +1,7 @@
 # tuioRain
 Standalone app to send a storm of TUIO events for stability testing.
 
-![](misc/screenshot.png)
+![](misc/screenshot.gif)
 
 Inspired by [Gal Sasson](https://github.com/galsasson)'s "Touch Rain" built into [ofxInterface](https://github.com/galsasson/ofxInterface). Check it out!
 
