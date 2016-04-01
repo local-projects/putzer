@@ -16,6 +16,9 @@ Standalone app to send a storm of TUIO events for stability testing.
 ##### Motion
 - The overall motion can be purely random or swept horizontall or vertically with the total duration of that sweeping motion set with the slider below.
 
+##### Dependencies
+- openFrameworks 0.9~ and ofxTuioWrapper. Just `git submodule init` and `git submodule update`.
+
 -
 
 This was inspired by [Gal Sasson](https://github.com/galsasson)'s "Touch Rain" built into [ofxInterface](https://github.com/galsasson/ofxInterface). Check it out!
