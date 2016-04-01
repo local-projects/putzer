@@ -1,0 +1,6 @@
+[submodule "openFrameworks"]
+	path = openFrameworks
+	url = https://github.com/openframeworks/openFrameworks.git
+[submodule "externalAddons/ofxTuioWrapper"]
+	path = externalAddons/ofxTuioWrapper
+	url = https://github.com/arturoc/ofxTuioWrapper.git
