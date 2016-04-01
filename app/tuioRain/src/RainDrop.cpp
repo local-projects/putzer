@@ -29,6 +29,7 @@ RainDrop::RainDrop(ofPoint _startPosition, float _releaseTime, ofVec2f _swipeDir
 		moveDir = _swipeDir;
 	}
 	
+	// ADD THE NEW CURSOR TO THE SERVER ////////////////////
 	cursor =					_server->addCursor(cursorPosition.x, cursorPosition.y);
 	cursorIsActive =	true;
 	
@@ -37,10 +38,12 @@ RainDrop::RainDrop(ofPoint _startPosition, float _releaseTime, ofVec2f _swipeDir
 
 void RainDrop::update(){
 	
+	// MOVE THE CURSOR IF IT IS A SWIPE ////////////////////
 	if (isSwipe){
 		cursorPosition += moveDir;
 	}
 	
+	// REMOVE THE CURSOR IF IT HAS EXPIRED /////////////////
 	if (ofGetElapsedTimef() > releaseTime){
 		if (cursorIsActive){
 			server->removeCursor(cursor);

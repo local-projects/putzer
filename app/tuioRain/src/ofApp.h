@@ -40,10 +40,11 @@ class ofApp : public ofBaseApp{
 		ofxPanel				gui;
 		ofxXmlSettings	XML;
 		ofxIntSlider		touchFrequency, numTouches;
-		ofxFloatSlider	maxSwipeLengthSlider, sweepLengthSlider, minTouchDir, maxTouchDir;
+		ofxFloatSlider	maxSwipeLengthSlider, minTouchDir, maxTouchDir;
 		ofxToggle				makeItRainToggle;
-		ofxToggle				marchHorizontalToggle;
-		ofxToggle				marchVerticalToggle;
+		ofxToggle				marchHorizontalToggle, marchVerticalToggle;
+		ofxFloatSlider	horizontalSweepSpeed, verticalSweepSpeed;
+		ofxToggle				sineHorizontalToggle, sineVerticalToggle;
 		ofxLabel				ipAddressLabel, portLabel, touchCountLabel;
 		ofxGuiGroup			infoGroup, touchesGroup, motionGroup;
 	
