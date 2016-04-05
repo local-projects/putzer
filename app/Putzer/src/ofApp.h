@@ -1,6 +1,6 @@
 //
 //  ofApp.h
-//  tuioRain
+//  Putzer
 //
 //  Created by Eric Rieper on 3/31/16.
 //
@@ -12,7 +12,7 @@
 #include "ofxGui.h"
 #include "ofxXmlSettings.h"
 #include "ofxTuioServer.h"
-#include "RainDrop.hpp"
+#include "FakeTouch.hpp"
 
 class ofApp : public ofBaseApp{
 
@@ -35,19 +35,19 @@ class ofApp : public ofBaseApp{
 	
 		ofxTuioServer			*myTuioServer;
 		TuioCursor				*cursor;
-		vector<RainDrop*> droplets;
+		vector<FakeTouch*> fakeTouches;
 	
 		ofxPanel				gui;
 		ofxXmlSettings	XML;
 		ofxIntSlider		touchFrequency, numTouches;
 		ofxFloatSlider	maxSwipeLengthSlider, minTouchDir, maxTouchDir;
-		ofxToggle				makeItRainToggle;
+		ofxToggle				putzerEnabledToggle;
 		ofxToggle				marchHorizontalToggle, marchVerticalToggle;
 		ofxFloatSlider	horizontalSweepSpeed, verticalSweepSpeed;
 		ofxToggle				sineHorizontalToggle, sineVerticalToggle;
 		ofxLabel				ipAddressLabel, portLabel, touchCountLabel;
 		ofxGuiGroup			infoGroup, touchesGroup, motionGroup;
 	
-		void						createDrop();
+		void						createtouch();
 	
 };

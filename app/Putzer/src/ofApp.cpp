@@ -1,6 +1,6 @@
 //
 //  ofApp.cpp
-//  tuioRain
+//  Putzer
 //
 //  Created by Eric Rieper on 3/31/16.
 //
@@ -16,7 +16,7 @@ void ofApp::setup() {
   ofSetFrameRate(60);
 
   // Window Setup
-  ofSetWindowTitle("☔️");
+  ofSetWindowTitle("Putzer!");
 
 
   // GUI Setup
@@ -24,13 +24,13 @@ void ofApp::setup() {
 
 	// General info labels
 	gui.add(infoGroup.setup("Info"));
+	infoGroup.add(putzerEnabledToggle.setup("Putzer Enabled", true));
   infoGroup.add(ipAddressLabel.setup("IP", "127.0.0.1"));
   infoGroup.add(portLabel.setup("PORT", "3333"));
 	infoGroup.add(touchCountLabel.setup("CURRENT TOUCHES", "0"));
 	
 	// Touch properties
 	gui.add(touchesGroup.setup("Touches"));
-	touchesGroup.add(makeItRainToggle.setup("Make It Rain", true));
   touchesGroup.add(touchFrequency.setup("Frames Between Touches", 5, 1, 120));
 	touchesGroup.add(numTouches.setup("Number of Touches",  2, 1, 10));
 	touchesGroup.add(minTouchDir.setup("Min Touch Duration", 0.05, 0.01, 10));
@@ -64,10 +64,26 @@ void ofApp::setup() {
 //--------------------------------------------------------------
 
 void ofApp::update() {
+	
+	// REMOVE OLD TOUCHES ////////////////////////////////////
+	for (auto touch : fakeTouches) {
+		if (!touch->cursorIsActive) {
+			if (touch) {
+				int removeIt = 0;
+				for (auto touchToRemove : fakeTouches){
+					if (touchToRemove == touch){
+						delete fakeTouches[removeIt];
+						fakeTouches.erase(fakeTouches.begin()+removeIt);
+					}
+					removeIt++;
+				}
+			}
+		}
+	}
 
-	// UPDATE EACH DROP ////////////////////////////////////
-	for (auto drop : droplets) {
-    drop->update();
+	// UPDATE EACH TOUCHES ////////////////////////////////////
+	for (auto touch : fakeTouches) {
+    touch->update();
   }
 	
 	// UPDATE THE TUIO SERVER //////////////////////////////
@@ -75,13 +91,13 @@ void ofApp::update() {
 	
 	// UPDATE THE GUI //////////////////////////////////////
 	if (ofGetFrameNum() % 15 == 0){
-		if (droplets.size() >= 256){
+		if (fakeTouches.size() >= 256){
 			touchCountLabel.setBackgroundColor(ofColor(100,10,40));
 		}
 		else {
 			touchCountLabel.setBackgroundColor(gui.getBackgroundColor());
 		}
-		touchCountLabel = ofToString(droplets.size());
+		touchCountLabel = ofToString(fakeTouches.size());
 	}
 	
 }
@@ -90,38 +106,26 @@ void ofApp::update() {
 
 void ofApp::draw() {
 
-  ofBackgroundGradient(ofColor(50, 60, 80), ofColor(20, 20, 30));
+  ofBackgroundGradient(ofColor(170, 160, 160), ofColor(120, 120, 130), OF_GRADIENT_LINEAR);
 	
-	// CREATING THE TOUCH DROPS ////////////////////////////
-	if (makeItRainToggle && droplets.size() < 256){ // Limits total number of touches to
+	// CREATING THE TOUCHES ////////////////////////////
+	if (putzerEnabledToggle && fakeTouches.size() < 256){ // Limits total number of touches to
 		if (ofGetFrameNum()%touchFrequency == 0){			// prevent buffer out of memory error.
 			
 			int cappedNumTouches = numTouches;
 			if ((marchHorizontalToggle && marchVerticalToggle) || (sineHorizontalToggle && marchVerticalToggle)){ cappedNumTouches = 1; } // Only make one touch because we have fixed X and Y position
-			for (int i = 0; i < cappedNumTouches; i++){	// Create the touch drops!
-				createDrop();
+			for (int i = 0; i < cappedNumTouches; i++){	// Create the touch touches!
+				createtouch();
 			}
 		}
 	}
 
-	// DRAWING THE TOUCH DROPS /////////////////////////////
+	// DRAWING THE TOUCHES /////////////////////////////
   ofSetColor(ofColor::white);
   ofPushStyle();
-	for (auto drop : droplets) {
-    if (drop->cursorIsActive) {
-      ofDrawCircle(drop->cursorPosition.x, drop->cursorPosition.y, 4);
-    }
-		// REMOVE EXPIRED DROPS FROM THE DROPLETS VECTOR /////
-		else {
-      if (drop) {
-				int removeIt = 0;
-				for (auto dropToRemove : droplets){
-					if (dropToRemove == drop){
-						droplets.erase(droplets.begin()+removeIt);
-					}
-					removeIt++;
-				}
-      }
+	for (auto touch : fakeTouches) {
+    if (touch->cursorIsActive) {
+      ofDrawCircle(touch->cursorPosition.x, touch->cursorPosition.y, 4);
     }
   }
   ofPopStyle();
@@ -132,36 +136,36 @@ void ofApp::draw() {
 
 //--------------------------------------------------------------
 
-void ofApp::createDrop(){
+void ofApp::createtouch(){
 	
 	// CREATE POSITION, DURATION, AND SWIPE PROPERTIES /////
-	ofPoint		newDropPosition(ofRandom(0, ofGetWidth()),ofRandom(0, ofGetHeight()));
-	float			newDropDuration(ofRandom(minTouchDir, maxTouchDir));
-	ofVec2f		newDropSwipeDistance(ofRandom(-maxSwipeLengthSlider,maxSwipeLengthSlider),ofRandom(-maxSwipeLengthSlider,maxSwipeLengthSlider));
-	bool			newDropDoesSwipe = random()%3;
+	ofPoint		newTouchPosition(ofRandom(0, ofGetWidth()),ofRandom(0, ofGetHeight()));
+	float			newTouchDuration(ofRandom(minTouchDir, maxTouchDir));
+	ofVec2f		newToucheswipeDistance(ofRandom(-maxSwipeLengthSlider,maxSwipeLengthSlider),ofRandom(-maxSwipeLengthSlider,maxSwipeLengthSlider));
+	bool			newTouchDoesSwipe = random()%3;
 	
 	// MODIFY POSITION BASED ON SWEEPING OR OSCILLATING ////
 	if (marchHorizontalToggle) {
 		float hMillis = horizontalSweepSpeed * 1000;
-		newDropPosition.x = ofGetWidth() *  ((ofGetElapsedTimeMillis() % (int)hMillis / hMillis)) ;
+		newTouchPosition.x = ofGetWidth() *  ((ofGetElapsedTimeMillis() % (int)hMillis / hMillis)) ;
 	}
 	if (marchVerticalToggle) {
 		float vMillis = verticalSweepSpeed * 1000;
-		newDropPosition.y = ofGetHeight() *  ((ofGetElapsedTimeMillis() % (int)vMillis / vMillis)) ;
+		newTouchPosition.y = ofGetHeight() *  ((ofGetElapsedTimeMillis() % (int)vMillis / vMillis)) ;
 	}
 	
 	if (sineHorizontalToggle){
-		newDropPosition.x = ofGetWidth() *  ( 0.5+(sinf(ofGetElapsedTimef() / ((float)horizontalSweepSpeed*0.5))*0.5) );
+		newTouchPosition.x = ofGetWidth() *  ( 0.5+(sinf(ofGetElapsedTimef() / ((float)horizontalSweepSpeed*0.5))*0.5) );
 	}
 	if (sineVerticalToggle){
-		newDropPosition.y = ofGetHeight() *  ( 0.5+(cosf(ofGetElapsedTimef() / ((float)verticalSweepSpeed*0.5))*0.5) );
+		newTouchPosition.y = ofGetHeight() *  ( 0.5+(cosf(ofGetElapsedTimef() / ((float)verticalSweepSpeed*0.5))*0.5) );
 	}
 	
-	// CREATE AND PUSH DROP INTO DROPLETS //////////////////
-	droplets.push_back(new RainDrop(newDropPosition,
-																	newDropDuration,
-																	newDropSwipeDistance,
-																	newDropDoesSwipe,
+	// CREATE AND PUSH touch INTO fakeTouches //////////////////
+	fakeTouches.push_back(new FakeTouch(newTouchPosition,
+																	newTouchDuration,
+																	newToucheswipeDistance,
+																	newTouchDoesSwipe,
 																	myTuioServer));
 }
 

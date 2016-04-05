@@ -1,22 +1,21 @@
 //
-//  RainDrop.cpp
-//  tuioRain
+//  FakeTouch.cpp
+//  Putzer
 //
 //  Created by Eric Rieper on 3/31/16.
 //
 //
 
-#include "RainDrop.hpp"
+#include "FakeTouch.hpp"
 
-RainDrop::~RainDrop(){
-
+FakeTouch::~FakeTouch(){
 }
 
-void RainDrop::retire(){
+void FakeTouch::retire(){
 	delete this;
 }
 
-RainDrop::RainDrop(ofPoint _startPosition, float _releaseTime, ofVec2f _swipeDir, bool _isSwipe, ofxTuioServer *_server){
+FakeTouch::FakeTouch(ofPoint _startPosition, float _releaseTime, ofVec2f _swipeDir, bool _isSwipe, ofxTuioServer *_server){
 	
 	server =					_server;
 	startTime =				ofGetElapsedTimef();
@@ -36,7 +35,7 @@ RainDrop::RainDrop(ofPoint _startPosition, float _releaseTime, ofVec2f _swipeDir
 	
 }
 
-void RainDrop::update(){
+void FakeTouch::update(){
 	
 	// MOVE THE CURSOR IF IT IS A SWIPE ////////////////////
 	if (isSwipe){
@@ -50,4 +49,5 @@ void RainDrop::update(){
 			cursorIsActive = false;
 		}
 	}
+	
 }

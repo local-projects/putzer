@@ -1,6 +1,6 @@
 //
 //  main.cpp
-//  tuioRain
+//  Putzer
 //
 //  Created by Eric Rieper on 3/31/16.
 //

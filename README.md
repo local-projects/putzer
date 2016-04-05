@@ -1,4 +1,4 @@
-# tuioRain
+# Putzer!
 Standalone app to send a storm of TUIO events for stability testing.
 
 ![](misc/screenshot.gif)

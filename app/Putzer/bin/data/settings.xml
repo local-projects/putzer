@@ -2,7 +2,7 @@
 	<group/>
 	<IP>127.0.0.1</IP>
 	<PORT>3333</PORT>
-	<CURRENT_TOUCHES>10</CURRENT_TOUCHES>
+	<CURRENT_TOUCHES>11</CURRENT_TOUCHES>
 	<Make_It_Rain>1</Make_It_Rain>
 	<Frames_Between_Touches>3</Frames_Between_Touches>
 	<Number_of_Touches>1</Number_of_Touches>
@@ -24,4 +24,5 @@
 	<Oscillate_Y>0</Oscillate_Y>
 	<X_Motion_Duration>1</X_Motion_Duration>
 	<Y_Motion_Duration>3</Y_Motion_Duration>
+<Putzer_Enabled>1</Putzer_Enabled>
 </group>
