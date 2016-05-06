@@ -1,28 +1,21 @@
 <group>
 	<group/>
+	<Putzer_Enabled>1</Putzer_Enabled>
 	<IP>127.0.0.1</IP>
 	<PORT>3333</PORT>
-	<CURRENT_TOUCHES>11</CURRENT_TOUCHES>
-	<Make_It_Rain>1</Make_It_Rain>
-	<Frames_Between_Touches>3</Frames_Between_Touches>
+	<CURRENT_TOUCHES>1</CURRENT_TOUCHES>
+	<Frames_Between_Touches>10</Frames_Between_Touches>
 	<Number_of_Touches>1</Number_of_Touches>
-	<Min_Touch_Dur>0.05</Min_Touch_Dur>
-	<Max_Touch_Dur>1</Max_Touch_Dur>
-	<Max_Swipe_Distance>2</Max_Swipe_Distance>
-	<Sweep_Horizontally>0</Sweep_Horizontally>
-	<Sweep_Vertically>0</Sweep_Vertically>
-	<Sweep_Duration>10000</Sweep_Duration>
-<Sine_Horizontally>1</Sine_Horizontally>
-	<Sine_Vertically>1</Sine_Vertically>
-	<X_Sweep_Duration>9.03469</X_Sweep_Duration>
-	<Y_Sweep_Duration>11.573</Y_Sweep_Duration>
-<Min_Touch_Duration>0.05</Min_Touch_Duration>
-	<Max_Touch_Duration>1</Max_Touch_Duration>
+	<Min_Touch_Duration>0.05</Min_Touch_Duration>
+	<Max_Touch_Duration>0.248673</Max_Touch_Duration>
+	<Swipe_Likleyhood>44</Swipe_Likleyhood>
+	<Max_Swipe_Speed>12.2449</Max_Swipe_Speed>
+	<Horizontal_Swipes>1</Horizontal_Swipes>
+	<Vertical_Swipes>1</Vertical_Swipes>
 	<Sweep_X>0</Sweep_X>
 	<Sweep_Y>0</Sweep_Y>
 	<Oscillate_X>0</Oscillate_X>
 	<Oscillate_Y>0</Oscillate_Y>
 	<X_Motion_Duration>1</X_Motion_Duration>
-	<Y_Motion_Duration>3</Y_Motion_Duration>
-<Putzer_Enabled>1</Putzer_Enabled>
+	<Y_Motion_Duration>2</Y_Motion_Duration>
 </group>
