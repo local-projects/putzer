@@ -42,6 +42,8 @@ void FakeTouch::update()
 	if (cursorIsActive) {
 		if (isSwipe) {
 			cursorPosition += moveDir;
+			cursorPosition.x = ofClamp(cursorPosition.x, 0, ofGetWidth());
+			cursorPosition.y = ofClamp(cursorPosition.y, 0, ofGetHeight());
 			server->updateCursor(cursor, cursorPosition.x, cursorPosition.y);
 		}
 	}

@@ -18,10 +18,14 @@ class ofApp : public ofBaseApp
 {
 
 public:
+	
+	// MAIN
 	void setup();
 	void update();
 	void draw();
+	void createtouch();
 
+	// EVENTS
 	void keyPressed(int key);
 	void keyReleased(int key);
 	void mouseMoved(int x, int y);
@@ -33,13 +37,15 @@ public:
 	void windowResized(int w, int h);
 	void dragEvent(ofDragInfo dragInfo);
 	void gotMessage(ofMessage msg);
+	void buttonPressed(const void * sender);
 
-	ofxTuioServer *myTuioServer;
-	TuioCursor *cursor;
+	// TUIO
+	ofxTuioServer				*myTuioServer;
+	TuioCursor					*cursor;
 	vector<FakeTouch *> fakeTouches;
 
+	// GUI
 	ofxXmlSettings XML;
-	
 	void setupGui();
 	ofxPanel *gui;
 	ofxIntSlider		*touchFrequency, *numTouches;
@@ -50,12 +56,15 @@ public:
 	ofxToggle				*sineHorizontalToggle, *sineVerticalToggle;
 	ofxIntSlider		*swipeLikelyhood;
 	ofxToggle				*horizontalSwipes, *verticalSwipes;
+	ofxButton				*resetRegionButton;
 	ofxLabel				*ipAddressLabel, *portLabel, *touchCountLabel;
 	ofxGuiGroup			*infoGroup, *touchesGroup, *motionGroup;
 	
-	bool shouldDrawFadeIn = true;
-	float fadeInCounter = -15;
-	
-
-	void createtouch();
+	// MISC
+	double					rounder(float _in, int _precision);
+	ofRectangle			touchRegionRect;
+	bool						isDraggingRect = false;
+	ofPoint					oldTopLeft, oldBottomRight;
+	bool						shouldDrawFadeIn = true;
+	float						fadeInCounter = -15;
 };

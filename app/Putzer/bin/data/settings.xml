@@ -3,13 +3,13 @@
 	<Putzer_Enabled>1</Putzer_Enabled>
 	<IP>127.0.0.1</IP>
 	<PORT>3333</PORT>
-	<CURRENT_TOUCHES>1</CURRENT_TOUCHES>
-	<Frames_Between_Touches>10</Frames_Between_Touches>
+	<CURRENT_TOUCHES>4</CURRENT_TOUCHES>
+	<Frames_Between_Touches>5</Frames_Between_Touches>
 	<Number_of_Touches>1</Number_of_Touches>
 	<Min_Touch_Duration>0.05</Min_Touch_Duration>
-	<Max_Touch_Duration>0.248673</Max_Touch_Duration>
-	<Swipe_Likleyhood>44</Swipe_Likleyhood>
-	<Max_Swipe_Speed>12.2449</Max_Swipe_Speed>
+	<Max_Touch_Duration>0.350306</Max_Touch_Duration>
+	<Swipe_Likleyhood>48</Swipe_Likleyhood>
+	<Max_Swipe_Speed>4.97449</Max_Swipe_Speed>
 	<Horizontal_Swipes>1</Horizontal_Swipes>
 	<Vertical_Swipes>1</Vertical_Swipes>
 	<Sweep_X>0</Sweep_X>
@@ -18,4 +18,5 @@
 	<Oscillate_Y>0</Oscillate_Y>
 	<X_Motion_Duration>1</X_Motion_Duration>
 	<Y_Motion_Duration>2</Y_Motion_Duration>
+<Number_of_Touches_Added>1</Number_of_Touches_Added>
 </group>
