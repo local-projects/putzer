@@ -64,7 +64,7 @@ void ofApp::setupGui()
 	numTouches = new ofxIntSlider();
 	resetRegionButton = new ofxButton();
 	resetRegionButton->addListener(this, &ofApp::buttonPressed);
-	swipeLikelyhood = new ofxIntSlider();
+	swipeLikelihood = new ofxIntSlider();
 	maxSwipeLengthSlider = new ofxFloatSlider();
 	horizontalSwipes = new ofxToggle();
 	verticalSwipes = new ofxToggle();
@@ -96,7 +96,7 @@ void ofApp::setupGui()
 	touchesGroup->add(numTouches->setup("Number of Touches Added", 2, 1, 10));
 	touchesGroup->add(minTouchDir->setup("Min Touch Duration", 0.05, 0.01, 4));
 	touchesGroup->add(maxTouchDir->setup("Max Touch Duration", 1.0, 0.02, 5));
-	touchesGroup->add(swipeLikelyhood->setup("Swipe Likleyhood", 10, 0, 100));
+	touchesGroup->add(swipeLikelihood->setup("Swipe Likelihood", 10, 0, 100));
 	touchesGroup->add(maxSwipeLengthSlider->setup("Max Swipe Speed", 5, 0.0, 25.0));
 	touchesGroup->add(horizontalSwipes->setup("Horizontal Swipes", true));
 	touchesGroup->add(verticalSwipes->setup("Vertical Swipes", true));
@@ -247,14 +247,14 @@ void ofApp::createtouch()
 
 	bool newTouchDoesSwipe = false;
 
-	if (*swipeLikelyhood == 0) {
+	if (*swipeLikelihood == 0) {
 		newTouchDoesSwipe = false;
 	}
-	else if (*swipeLikelyhood == 100) {
+	else if (*swipeLikelihood == 100) {
 		newTouchDoesSwipe = true;
 	}
 	else {
-		newTouchDoesSwipe = (bool)(rand() % *swipeLikelyhood);
+		newTouchDoesSwipe = (bool)(rand() % *swipeLikelihood);
 	}
 
 	// MODIFY POSITION BASED ON SWEEPING OR OSCILLATING

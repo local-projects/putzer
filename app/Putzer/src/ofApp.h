@@ -54,7 +54,7 @@ public:
 	ofxToggle				*marchHorizontalToggle, *marchVerticalToggle;
 	ofxFloatSlider	*horizontalSweepSpeed, *verticalSweepSpeed;
 	ofxToggle				*sineHorizontalToggle, *sineVerticalToggle;
-	ofxIntSlider		*swipeLikelyhood;
+	ofxIntSlider		*swipeLikelihood;
 	ofxToggle				*horizontalSwipes, *verticalSwipes;
 	ofxButton				*resetRegionButton;
 	ofxLabel				*ipAddressLabel, *portLabel, *touchCountLabel;
