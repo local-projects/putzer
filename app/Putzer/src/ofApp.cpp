@@ -229,7 +229,8 @@ void ofApp::createtouch()
 	// Note: ofxTuioServer::addCursor() takes screen coordinates.
 
 	// CREATE POSITION, DURATION, AND SWIPE PROPERTIES
-	ofPoint newTouchPosition(ofRandom(touchRegionRect.getLeft() * ofGetWidth(), touchRegionRect.getRight() * ofGetWidth()), ofRandom(touchRegionRect.getTop() * ofGetHeight(), touchRegionRect.getBottom() * ofGetHeight()));
+	ofPoint newTouchPosition(ofRandom(touchRegionRect.getLeft() * ofGetWidth(), touchRegionRect.getRight() * ofGetWidth()),
+													 ofRandom(touchRegionRect.getTop() * ofGetHeight(), touchRegionRect.getBottom() * ofGetHeight()));
 	float newTouchDuration(ofRandom(*minTouchDir, *maxTouchDir));
 
 	int whichDir = rand() % 3;
@@ -254,7 +255,9 @@ void ofApp::createtouch()
 		newTouchDoesSwipe = true;
 	}
 	else {
-		newTouchDoesSwipe = (bool)(rand() % *swipeLikelihood);
+		if (rand() % 100 < *swipeLikelihood){
+			newTouchDoesSwipe = true;
+		}
 	}
 
 	// MODIFY POSITION BASED ON SWEEPING OR OSCILLATING
