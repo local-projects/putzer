@@ -13,6 +13,9 @@
 #include "ofxGui.h"
 #include "ofxTuioServer.h"
 #include "ofxXmlSettings.h"
+#include "Globals.hpp"
+
+#define GUI_WIDTH 220
 
 class ofApp : public ofBaseApp
 {
@@ -59,10 +62,12 @@ public:
 	ofxButton				*resetRegionButton;
 	ofxLabel				*ipAddressLabel, *portLabel, *touchCountLabel;
 	ofxGuiGroup			*infoGroup, *touchesGroup, *motionGroup;
+	ofImage					*shadowImage;
 	
 	// MISC
 	double					rounder(float _in, int _precision);
 	ofRectangle			touchRegionRect;
+	void						resetTouchRegion();
 	bool						isDraggingRect = false;
 	ofPoint					oldTopLeft, oldBottomRight;
 	bool						shouldDrawFadeIn = true;

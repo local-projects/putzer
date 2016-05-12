@@ -12,17 +12,18 @@
 void ofApp::setup()
 {
 
-	// OF Setup
+	// OF Setup ///////////////////////////////
 	ofBackground(200);
 	ofSetFrameRate(60);
-
-	// Window Setup
+	
+	// Gui Setup //////////////////////////////
+	setupGui();
+	
+	// Window Setup ///////////////////////////
+	ofSetWindowShape((gui->getHeight() + (gui->getPosition().y * 2)) * 2, gui->getHeight() + (gui->getPosition().y * 2));
 	ofSetWindowTitle("Putzer!");
 
-	// Gui Setup
-	setupGui();
-
-	// TUIO Setup
+	// TUIO Setup /////////////////////////////
 	myTuioServer = new ofxTuioServer;
 
 	string str = *ipAddressLabel;
@@ -31,10 +32,9 @@ void ofApp::setup()
 	myTuioServer->start(cstr, ofToInt(*portLabel));
 	myTuioServer->setVerbose(false);
 
-	// Scale window to fit GUI
-	ofSetWindowShape((gui->getHeight() + (gui->getPosition().y * 2)) * 2, gui->getHeight() + (gui->getPosition().y * 2));
-
-	touchRegionRect.set(0, 0, 1, 1);
+	// Set initial full touch region //////////
+	resetTouchRegion();
+	
 }
 
 //--------------------------------------------------------------
@@ -43,10 +43,15 @@ void ofApp::setupGui()
 	// Arduous setup to actually style ofxGui...
 
 	// GUI Setup
+	shadowImage = new ofImage;
+	shadowImage->load("shadowLeft.png");
+	
 	gui = new ofxPanel();
 	gui->setup();
 
 	ofColor guiColor(40, 40, 40);
+	
+	gui->setPosition(10,10);
 
 	gui->setHeaderBackgroundColor(guiColor);
 	gui->setBackgroundColor(guiColor);
@@ -55,6 +60,14 @@ void ofApp::setupGui()
 	gui->setDefaultHeaderBackgroundColor(guiColor);
 	gui->setDefaultBackgroundColor(guiColor);
 	gui->setDefaultBorderColor(guiColor);
+	gui->setDefaultFillColor(ofColor::fromHex(0x4f7480));
+	gui->setDefaultTextColor(210);
+	gui->setDefaultWidth(200);
+	gui->setDefaultTextPadding(10);
+	gui->setUseTTF(true);
+	gui->loadFont("Montserrat-Regular.ttf", 8, true, false);
+	gui->setDefaultHeight(20);
+//	gui->setDefaultTextPadding(10);
 
 	infoGroup = new ofxGuiGroup();
 	touchesGroup = new ofxGuiGroup();
@@ -95,9 +108,9 @@ void ofApp::setupGui()
 	touchesGroup->add(touchFrequency->setup("Frames Between Touches", 5, 1, 120));
 	touchesGroup->add(numTouches->setup("Number of Touches Added", 2, 1, 10));
 	touchesGroup->add(minTouchDir->setup("Min Touch Duration", 0.05, 0.01, 4));
-	touchesGroup->add(maxTouchDir->setup("Max Touch Duration", 1.0, 0.02, 5));
-	touchesGroup->add(swipeLikelihood->setup("Swipe Likelihood", 10, 0, 100));
-	touchesGroup->add(maxSwipeLengthSlider->setup("Max Swipe Speed", 5, 0.0, 25.0));
+	touchesGroup->add(maxTouchDir->setup("Max Touch Duration", 0.5, 0.02, 5));
+	touchesGroup->add(swipeLikelihood->setup("Swipe Likelihood", 45, 0, 100));
+	touchesGroup->add(maxSwipeLengthSlider->setup("Max Swipe Speed", 0.01, 0.0, 0.1));
 	touchesGroup->add(horizontalSwipes->setup("Horizontal Swipes", true));
 	touchesGroup->add(verticalSwipes->setup("Vertical Swipes", true));
 
@@ -109,7 +122,7 @@ void ofApp::setupGui()
 	motionGroup->add(sineHorizontalToggle->setup("Oscillate X", false));
 	motionGroup->add(sineVerticalToggle->setup("Oscillate Y", false));
 	motionGroup->add(horizontalSweepSpeed->setup("X Motion Duration", 1, 0.1, 20));
-	motionGroup->add(verticalSweepSpeed->setup("Y Motion Duration", 2, 0.1, 20));
+	motionGroup->add(verticalSweepSpeed->setup("Y Motion Duration", 3.5, 0.1, 20));
 
 	gui->loadFromFile("settings.xml");
 }
@@ -131,7 +144,9 @@ void ofApp::update()
 			}
 
 			for (int i = 0; i < cappedNumTouches; i++) { // Create the touches!
-				createtouch();
+				if (fakeTouches.size() < 256) {
+					createtouch();
+				}
 			}
 		}
 	}
@@ -178,7 +193,7 @@ void ofApp::draw()
 {
 
 	// DRAW THE BACKGROUND ////////////////////
-	ofBackgroundGradient(ofColor(24), ofColor(4), OF_GRADIENT_CIRCULAR);
+	ofBackgroundGradient(ofColor(30), ofColor(20), OF_GRADIENT_CIRCULAR);
 
 	// DRAW THE TOUCHES
 	for (auto touch : fakeTouches) {
@@ -189,23 +204,23 @@ void ofApp::draw()
 
 	// DRAW TOUCH REGION RECTANGLE ////////////
 	ofPushStyle();
-	ofNoFill();
-	ofSetColor(220);
-	ofRectangle drawnRect(touchRegionRect);
-	drawnRect.x *= ofGetWidth();
-	drawnRect.y *= ofGetHeight();
-	drawnRect.width *= ofGetWidth();
-	drawnRect.height *= ofGetHeight();
-	ofDrawRectangle(drawnRect);
-
-	// DRAW REGION COORDINATES
-	ofDrawBitmapString(ofToString(rounder(touchRegionRect.getTopLeft().x, 100)) + " , " + ofToString(rounder(touchRegionRect.getTopLeft().y, 100)), drawnRect.getTopLeft());
-	ofDrawBitmapString(ofToString(rounder(touchRegionRect.getBottomRight().x, 100)) + " , " + ofToString(rounder(touchRegionRect.getBottomRight().y, 100)), drawnRect.getBottomRight());
-
-	ofFill();
+		ofNoFill();
+		ofSetColor(220);
+		ofRectangle drawnRect(touchRegionRect);
+		drawnRect.x *= ofGetWidth();
+		drawnRect.y *= ofGetHeight();
+		drawnRect.width *= ofGetWidth();
+		drawnRect.height *= ofGetHeight();
+		ofDrawRectangle(drawnRect);
 	ofPopStyle();
 
 	// DRAW THE GUI ///////////////////////////
+	shadowImage->draw(GUI_WIDTH,0,29,ofGetHeight());
+	ofPushStyle();
+	ofSetColor(40);
+	ofDrawRectangle(0,0,GUI_WIDTH,ofGetHeight());
+	ofPopStyle();
+	gui->setPosition(10,10);
 	gui->draw();
 
 	// DRAW A FADE IN ON STARTUP //////////////
@@ -226,11 +241,11 @@ void ofApp::draw()
 void ofApp::createtouch()
 {
 
-	// Note: ofxTuioServer::addCursor() takes screen coordinates.
+	// Note: Using normalized coordinates (0-1)
 
 	// CREATE POSITION, DURATION, AND SWIPE PROPERTIES
-	ofPoint newTouchPosition(ofRandom(touchRegionRect.getLeft() * ofGetWidth(), touchRegionRect.getRight() * ofGetWidth()),
-													 ofRandom(touchRegionRect.getTop() * ofGetHeight(), touchRegionRect.getBottom() * ofGetHeight()));
+	ofPoint newTouchPosition(ofRandom(touchRegionRect.getLeft(), touchRegionRect.getRight()),
+													 ofRandom(touchRegionRect.getTop(), touchRegionRect.getBottom()));
 	float newTouchDuration(ofRandom(*minTouchDir, *maxTouchDir));
 
 	int whichDir = rand() % 3;
@@ -263,20 +278,23 @@ void ofApp::createtouch()
 	// MODIFY POSITION BASED ON SWEEPING OR OSCILLATING
 	if (*marchHorizontalToggle) {
 		float hMillis = *horizontalSweepSpeed * 1000;
-		newTouchPosition.x = (touchRegionRect.getLeft() * ofGetWidth()) + ((touchRegionRect.getWidth() * ofGetWidth()) * ((ofGetElapsedTimeMillis() % (int)hMillis / hMillis)));
+		newTouchPosition.x = (touchRegionRect.getLeft()) + ((touchRegionRect.getWidth()) * ((ofGetElapsedTimeMillis() % (int)hMillis / hMillis)));
 	}
 
 	if (*marchVerticalToggle) {
 		float vMillis = *verticalSweepSpeed * 1000;
-		newTouchPosition.y = (touchRegionRect.getTop() * ofGetHeight()) + ((touchRegionRect.getHeight() * ofGetHeight()) * ((ofGetElapsedTimeMillis() % (int)vMillis / vMillis)));
+		newTouchPosition.y = (touchRegionRect.getTop()) + ((touchRegionRect.getHeight()) * ((ofGetElapsedTimeMillis() % (int)vMillis / vMillis)));
 	}
 
 	if (*sineHorizontalToggle) {
-		newTouchPosition.x = (touchRegionRect.getLeft() * ofGetWidth()) + ((touchRegionRect.getWidth() * ofGetWidth()) * (0.5 + (sinf(ofGetElapsedTimef() / ((float)*horizontalSweepSpeed * 0.5)) * 0.5)));
+		newTouchPosition.x = (touchRegionRect.getLeft()) + ((touchRegionRect.getWidth()) * (0.5 + (sinf(ofGetElapsedTimef() / ((float)*horizontalSweepSpeed * 0.5)) * 0.5)));
 	}
 	if (*sineVerticalToggle) {
-		newTouchPosition.y = (touchRegionRect.getTop() * ofGetHeight()) + ((touchRegionRect.getHeight() * ofGetHeight()) * (0.5 + (cosf(ofGetElapsedTimef() / ((float)*verticalSweepSpeed * 0.5)) * 0.5)));
+		newTouchPosition.y = (touchRegionRect.getTop()) + ((touchRegionRect.getHeight()) * (0.5 + (cosf(ofGetElapsedTimef() / ((float)*verticalSweepSpeed * 0.5)) * 0.5)));
 	}
+	
+	// OFFSET FOR GUI
+	newTouchPosition.x = ofMap(newTouchPosition.x, (float)GUI_WIDTH / (float)ofGetWidth(), 1, 0, 1);
 
 	// CREATE AND PUSH touch INTO fakeTouches
 	fakeTouches.push_back(new FakeTouch(newTouchPosition, newTouchDuration, newTouchSwipeDistance, newTouchDoesSwipe, myTuioServer));
@@ -297,6 +315,9 @@ void ofApp::mouseMoved(int x, int y) {}
 void ofApp::mouseDragged(int x, int y, int button)
 {
 	if (button == OF_MOUSE_BUTTON_LEFT && isDraggingRect) {
+		// Clamp for GUI offset
+		x = ofClamp(x,GUI_WIDTH, ofGetWidth());
+		y = ofClamp(y,0,ofGetHeight());
 		ofPoint mappedPoint(x / (float)ofGetWidth(), y / (float)ofGetHeight());
 		touchRegionRect.set(mappedPoint, oldBottomRight);
 	}
@@ -305,11 +326,16 @@ void ofApp::mouseDragged(int x, int y, int button)
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button)
 {
-	if (button == OF_MOUSE_BUTTON_LEFT && !gui->getShape().inside(x, y)) {
+	if (button == OF_MOUSE_BUTTON_LEFT && x > GUI_WIDTH + 2) {
 
 		isDraggingRect = true;
+		
+		// Clamp for GUI offset
+		x = ofClamp(x,GUI_WIDTH, ofGetWidth());
+		y = ofClamp(y,0,ofGetHeight());
 
 		ofPoint mappedPoint(x / (float)ofGetWidth(), y / (float)ofGetHeight());
+		
 		touchRegionRect.set(mappedPoint, mappedPoint);
 
 		oldTopLeft = touchRegionRect.getTopLeft();
@@ -344,6 +370,11 @@ void ofApp::dragEvent(ofDragInfo dragInfo) {}
 void ofApp::buttonPressed(const void *sender)
 {
 	if (sender == resetRegionButton) {
-		touchRegionRect.set(0, 0, 1, 1);
+		resetTouchRegion();
 	}
+}
+
+//--------------------------------------------------------------
+void ofApp::resetTouchRegion(){
+		touchRegionRect.set(GUI_WIDTH / (float)ofGetWidth(), 0, 1 - GUI_WIDTH / (float)ofGetWidth(), 1);
 }

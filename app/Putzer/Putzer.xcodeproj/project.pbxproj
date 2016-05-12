@@ -15,6 +15,7 @@
 		50031EC589A30CA642DAFB58 /* OscOutboundPacketStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 621C325921DFEE3475FD5D7A /* OscOutboundPacketStream.cpp */; };
 		55DD1ECB81422E0082B50751 /* UdpSocket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7F3BF57B5700F89ED0D80616 /* UdpSocket.cpp */; };
 		56E0EC06162476CFD4D889EF /* ofxPanel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1383DE3833FF682FF67B5A69 /* ofxPanel.cpp */; };
+		590529621CE4F4C500D11672 /* Globals.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 590529601CE4F4C500D11672 /* Globals.cpp */; };
 		59091B69D0C22F1C78C7FBD7 /* ofxSliderGroup.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 49524AA22E67F7EBB94B1959 /* ofxSliderGroup.cpp */; };
 		5922EA0E1CADC0D1000715FF /* ofxTuioClient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5922E9FD1CADC0D1000715FF /* ofxTuioClient.cpp */; };
 		5922EA0F1CADC0D1000715FF /* ofxTuioServer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5922E9FF1CADC0D1000715FF /* ofxTuioServer.cpp */; };
@@ -88,6 +89,8 @@
 		4BC9B5BBC24846E5549AC249 /* ofxLabel.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxLabel.h; path = ../../openFrameworks/addons/ofxGui/src/ofxLabel.h; sourceTree = SOURCE_ROOT; };
 		50D4CD30ED468C2E07DC9107 /* ofxXmlSettings.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxXmlSettings.cpp; path = ../../openFrameworks/addons/ofxXmlSettings/src/ofxXmlSettings.cpp; sourceTree = SOURCE_ROOT; };
 		51E41FD4D7F638D7E88BC48C /* ofxOsc.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxOsc.h; path = ../../openFrameworks/addons/ofxOsc/src/ofxOsc.h; sourceTree = SOURCE_ROOT; };
+		590529601CE4F4C500D11672 /* Globals.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Globals.cpp; sourceTree = "<group>"; };
+		590529611CE4F4C500D11672 /* Globals.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Globals.hpp; sourceTree = "<group>"; };
 		5922E9FD1CADC0D1000715FF /* ofxTuioClient.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ofxTuioClient.cpp; sourceTree = "<group>"; };
 		5922E9FE1CADC0D1000715FF /* ofxTuioClient.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxTuioClient.h; sourceTree = "<group>"; };
 		5922E9FF1CADC0D1000715FF /* ofxTuioServer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ofxTuioServer.cpp; sourceTree = "<group>"; };
@@ -387,6 +390,8 @@
 				E4B69E1F0A3A1BDC003C02F2 /* ofApp.h */,
 				0D6060785EAAA84CA2593E48 /* FakeTouch.cpp */,
 				FCA5750A3FF91B2688AE0617 /* FakeTouch.hpp */,
+				590529601CE4F4C500D11672 /* Globals.cpp */,
+				590529611CE4F4C500D11672 /* Globals.hpp */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
@@ -551,6 +556,7 @@
 				7429A50ABFD115850DAF48CC /* OscReceivedElements.cpp in Sources */,
 				41CCDC0055522FEC46AC18C3 /* OscTypes.cpp in Sources */,
 				2C68D3A329673D7462B5234C /* ofxXmlSettings.cpp in Sources */,
+				590529621CE4F4C500D11672 /* Globals.cpp in Sources */,
 				5922EA101CADC0D1000715FF /* TuioClient.cpp in Sources */,
 				F09418FA2F23718DA511CD00 /* tinyxml.cpp in Sources */,
 				B55EAB4BE963079B30C35A71 /* tinyxmlerror.cpp in Sources */,

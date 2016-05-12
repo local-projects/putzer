@@ -19,6 +19,7 @@ Inspired by [Gal Sasson](https://github.com/galsasson)'s "Touch Rain" built into
 - Emits `X` number of touch events every `Y` frames - set with GUI.
 - Touches have a random length between the minimum and maximum touch duration.
 - Touches can be held and moved, creating swipes. Likelihood of a swipe is controlled in the GUI.
+- Regular swipes will vary their drag speed over time creating "wiggles"
 - Turning on `horizontal swipes` or `vertical swipes` will mix in purely horizontal and / or vertical swipes.
 
 ##### Motion

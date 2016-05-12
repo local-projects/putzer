@@ -11,6 +11,7 @@
 
 #include "ofMain.h"
 #include "ofxTuioServer.h"
+#include "Globals.hpp"
 
 class FakeTouch
 {
